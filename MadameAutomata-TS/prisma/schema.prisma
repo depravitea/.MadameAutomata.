@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ServerSettings {
+  guildId          String  @id
+  welcomeChannelId String?
+  logsChannelId    String?
+  createdAt        DateTime @default(now())
+}
+
+model Ownership {
+  id        String   @id @default(cuid())
+  guildId   String
+  ownerId   String
+  subId     String
+  createdAt DateTime @default(now())
+}
+
+model Safeword {
+  id        String   @id @default(cuid())
+  guildId   String
+  userId    String
+  tier      String
+  note      String?
+  createdAt DateTime @default(now())
+}
+
+model Task {
+  id         String   @id @default(cuid())
+  guildId    String
+  assignedTo String
+  assignedBy String
+  title      String
+  done       Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}
+
+model Jail {
+  id        String   @id @default(cuid())
+  guildId   String
+  userId    String
+  reason    String?
+  until     DateTime?
+  createdAt DateTime @default(now())
+}
+
+model Favor {
+  id        String   @id @default(cuid())
+  guildId   String
+  userId    String
+  amount    Int       @default(0)
+  reason    String?
+  createdAt DateTime  @default(now())
+}
